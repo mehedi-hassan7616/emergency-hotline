@@ -92,24 +92,25 @@ for (const heart of hearts) {
     e.preventDefault();
 
     if (e.target.classList.contains("fa-regular")) {
-      e.target.classList.remove("fa-regular");
-      e.target.classList.add("fa-solid");
-      e.target.style.color = "#ff0000";
+      
+      // 
+      
 
       const loveCount = parseInt(
         document.getElementById("love-count").innerText
       );
       const totalLoveCount = parseInt(loveCount + 1);
       document.getElementById("love-count").innerText = totalLoveCount;
-    } else {
-      e.target.classList.remove("fa-solid");
+    }
+ else {
+  
       e.target.classList.add("fa-regular");
-      e.target.style.color = "#5c5c5c";
+     
 
       const loveCount = parseInt(
         document.getElementById("love-count").innerText
       );
-      const totalLoveCount = parseInt(loveCount - 1);
+      
       document.getElementById("love-count").innerText = totalLoveCount;
     }
   });
