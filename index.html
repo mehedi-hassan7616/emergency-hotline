@@ -41,7 +41,7 @@
               </div>
               <div class="">
                 <button
-                  class="flex gap-2 bg-[#00A63E] text-[#ffffff] font-medium py-1 px-2 rounded-3xl"
+                  class=" flex gap-2 bg-[#00A63E] text-[#ffffff] font-medium py-1 px-2 rounded-3xl"
                 >
                   <p id="copy-count">0</p>
                   <span>copy</span>
@@ -85,12 +85,15 @@
           <div class="mb-4">
             <h3 class="font-bold">National Emergency Number</h3>
             <p class="text-sm text-[#5c5c5c]">National Emergency</p>
-            <h2 class="font-bold">999</h2>
+            <h2 id="textToCopy" class="font-bold">999</h2>
             <p class="w-10 p-2 bg-[#f0f0f0] rounded-2xl text-[#5c5c5c]">All</p>
           </div>
           <div class="flex ">
             <div class="w-full">
-              <button  class="copy-btn btn h-7 w-full">
+<div  class="text-gray-800 text-lg ">
+       
+    </div>
+              <button onclick="copyToClipboard()" class="copy-1  copy-btn btn h-7 w-full">
                 <i class="copy fa-regular fa-copy"></i> copy
               </button>
             </div>

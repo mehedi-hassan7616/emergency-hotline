@@ -45,10 +45,8 @@ function historyobj(serviceName, serviceNumber) {
   }
 }
 function historyCreate(id, serviceName, serviceNumber) {
-  const hcallbtns = document.getElementsByClassName(id);
-  for (const hcallbtn of hcallbtns) {
-    hcallbtn.addEventListener("click", function (e) {
-      e.preventDefault();
+console.log("his");
+  
 
       const historyContainer = document.getElementById("history-Container");
       historyContainer.innerText = "";
@@ -63,9 +61,9 @@ function historyCreate(id, serviceName, serviceNumber) {
             </div>`;
         historyContainer.appendChild(div);
       }
-    });
+   
   }
-}
+
 
 // function history(id1,id2) {
 //   document.getElementById(call).addEventListener("click",function(){
@@ -118,6 +116,7 @@ const callbtns = document.getElementsByClassName("call-1");
 for (const callbtn of callbtns) {
   callbtn.addEventListener("click", function (e) {
     e.preventDefault();
+
     document.getElementById("history-Container").style.display = "block";
 
     const naturalAlert = cardAlert(
@@ -134,6 +133,18 @@ for (const callbtn of callbtns) {
     );
   });
 }
+
+// copy-1
+
+function copyToClipboard() {
+      const text = document.getElementById('textToCopy').innerText;
+       navigator.clipboard.writeText(text)
+      .then(function () {
+        alert("text has been copied: " + text);
+      });
+    
+    }
+
 // const card1 = EmergencyService("call-1", "National Emergency Number", "999");
 
 // toggle
@@ -142,7 +153,7 @@ const clearbtns = document.getElementById("clear");
 
 clearbtns.addEventListener("click", function (e) {
   e.preventDefault();
-
+historydata.length=0;
   document.getElementById("history-Container").innerText = "";
 });
 
