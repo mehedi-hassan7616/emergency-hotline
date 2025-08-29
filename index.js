@@ -1,160 +1,135 @@
-const historydata = [];
-function cardAlert(id, serviceName, serviceNumber) {
-  console.log("Call button clicked");
-  const CoinCount = parseInt(document.getElementById(id).innerText);
-  if (CoinCount < 20) {
-    alert(`you have not sufficient coin ,you have to call atlist 20 coin need`);
+const historyData = [];
+
+function handleCallAttempt(counterId, serviceName, serviceNumber) {
+  const coinCount = parseInt(document.getElementById(counterId).innerText);
+  if (coinCount < 20) {
+    alert("You have not sufficient coin, you need at least 20 coin to call");
+    return false;
   } else {
     alert(`calling ${serviceName} ${serviceNumber}`);
-    const totalCoinCount = parseInt(CoinCount - 20);
-    document.getElementById(id).innerText = totalCoinCount;
+    const totalCoinCount = parseInt(coinCount - 20);
+    document.getElementById(counterId).innerText = totalCoinCount;
+    return true;
   }
 }
 
-// function make for history
-function historyobj(serviceName, serviceNumber) {
+// history helpers
+function addHistoryEntry(serviceName, serviceNumber) {
   const data = {
     name: serviceName,
-    Number: serviceNumber,
+    number: serviceNumber,
     date: new Date().toLocaleString(),
   };
-
-  historydata.push(data);
-  // function EmergencyService(id, serviceName, serviceNumber)
-  function EmergencyService(id, serviceName, serviceNumber) {
-    const callbtns = document.getElementsByClassName(id);
-    for (const callbtn of callbtns) {
-      callbtn.addEventListener("click", function (e) {
-        e.preventDefault();
-        document.getElementById("history-Container").style.display = "block";
-
-        const naturalAlert = cardAlert(
-          "coin-count",
-          serviceName,
-          serviceNumber
-        );
-        const historyObj = historyobj(serviceName, serviceNumber);
-
-        const createHistory = historyCreate(
-          id,
-          serviceName,
-          serviceNumber
-        );
-      });
-    }
-  }
+  historyData.push(data);
 }
-function historyCreate(id, serviceName, serviceNumber) {
-console.log("his");
+
+
+
+function renderHistory() {
+  const historyContainer = document.getElementById("history-Container");
+  historyContainer.innerText = "";
+
   
 
-      const historyContainer = document.getElementById("history-Container");
-      historyContainer.innerText = "";
-      for (const data of historydata) {
-        console.log("ban");
-        const div = document.createElement("div");
-        div.innerHTML = `<div class=" lg:flex justify-between items-center bg-[#fafafa] p-4 rounded-2">
-              <div><h1 class="font-bold">${data.name}</h1> 
-                   <p class="text-[#5c5c5c]">${data.Number}</p>
-              </div>
-              <div>${data.date}</div>
-            </div>`;
-        historyContainer.appendChild(div);
-      }
-   
+  for (const data of historyData) {
+    const div = document.createElement("div");
+    div.innerHTML = `<div class="lg:flex justify-between items-center bg-[#fafafa] p-4 rounded-2 mb-2 mt-2">
+          <div>
+            <h3 class="font-bold text-gray-800 mb-1">${data.name}</h3> 
+            <p class="text-gray-600">${data.number}</p>
+            <div class="text-gray-500 font-medium"> ${data.date}</div>
+          </div>
+        </div>`;
+    historyContainer.appendChild(div);
   }
+}
 
+function initEmergencyService(className, serviceName, serviceNumber) {
+  const callButtons = document.getElementsByClassName(className);
+  for (const callBtn of callButtons) {
+    callBtn.addEventListener("click", function (e) {
+      e.preventDefault();
 
-// function history(id1,id2) {
-//   document.getElementById(call).addEventListener("click",function(){
-//     const historyContainer = document.getElementById(historyContain)
-//     historyContainer.innerText = ""
-// for (const data of historydata) {
-//   const div = document.createElement("div");
-//   div.innerHTML = `<div class="flex justify-between items-center bg-[#fafafa] p-4 rounded-2">
-//               <div><h1 class="font-bold">Fire Service Number</h1>
-//                    <p class="text-[#5c5c5c]">999</p>
-//               </div>
-//               <div>date</div>
-//             </div>`;
-//   historyContainer.appendChild(div);
-// }
-// })
-// }
-// heart-count
-// and love increase
-console.log(historydata);
+      const callSuccessful = handleCallAttempt(
+        "coin-count",
+        serviceName,
+        serviceNumber
+      );
 
+      if (callSuccessful) {
+        addHistoryEntry(serviceName, serviceNumber);
+        renderHistory();
+      }
+    });
+  }
+}
+
+// Copy function for all copy buttons
+function copyToClipboard(serviceName, serviceNumber) {
+  const textToCopy = `${serviceName}: ${serviceNumber}`;
+  navigator.clipboard
+    .writeText(textToCopy)
+    .then(function () {
+      alert("Copied to clipboard: " + textToCopy);
+      const copyCount = parseInt(
+        document.getElementById("copy-count").innerText
+      );
+      document.getElementById("copy-count").innerText = copyCount + 1;
+    })
+    .catch(function (err) {
+      console.error("Could not copy text: ", err);
+      alert("Failed to copy text");
+    });
+}
+
+// heart-count and love increase with toggle functionality
 const hearts = document.getElementsByClassName("heart");
 for (const heart of hearts) {
   heart.addEventListener("click", function (e) {
     e.preventDefault();
-    const loveCount = parseInt(document.getElementById("love-count").innerText);
 
-    const totalLoveCount = parseInt(loveCount + 1);
-    document.getElementById("love-count").innerText = totalLoveCount;
-  });
-}
-// copyCounts
-const copys = document.getElementsByClassName("copy-btn");
+    if (e.target.classList.contains("fa-regular")) {
+      e.target.classList.remove("fa-regular");
+      e.target.classList.add("fa-solid");
+      e.target.style.color = "#ff0000";
 
-for (const copy of copys) {
-  copy.addEventListener("click", function (e) {
-    e.preventDefault();
-    const copyCount = parseInt(document.getElementById("copy-count").innerText);
+      const loveCount = parseInt(
+        document.getElementById("love-count").innerText
+      );
+      const totalLoveCount = parseInt(loveCount + 1);
+      document.getElementById("love-count").innerText = totalLoveCount;
+    } else {
+      e.target.classList.remove("fa-solid");
+      e.target.classList.add("fa-regular");
+      e.target.style.color = "#5c5c5c";
 
-    const totalCopyCount = parseInt(copyCount + 1);
-    document.getElementById("copy-count").innerText = totalCopyCount;
-  });
-}
-
-
-
-// card 1
-
-const callbtns = document.getElementsByClassName("call-1");
-for (const callbtn of callbtns) {
-  callbtn.addEventListener("click", function (e) {
-    e.preventDefault();
-
-    document.getElementById("history-Container").style.display = "block";
-
-    const naturalAlert = cardAlert(
-      "coin-count",
-      "National Emergency Number",
-      999
-    );
-    const historyObj = historyobj("National Emergency Number", 999);
-
-    const createHistory = historyCreate(
-      "call-1",
-      "National Emergency Number",
-      999
-    );
-  });
-}
-
-// copy-1
-
-function copyToClipboard() {
-      const text = document.getElementById('textToCopy').innerText;
-       navigator.clipboard.writeText(text)
-      .then(function () {
-        alert("text has been copied: " + text);
-      });
-    
+      const loveCount = parseInt(
+        document.getElementById("love-count").innerText
+      );
+      const totalLoveCount = parseInt(loveCount - 1);
+      document.getElementById("love-count").innerText = totalLoveCount;
     }
+  });
+}
 
-// const card1 = EmergencyService("call-1", "National Emergency Number", "999");
+// Initialize all emergency services
+initEmergencyService("call-1", "National Emergency Number", "999");
+initEmergencyService("call-2", "Police Helpline Number", "999");
+initEmergencyService("call-3", "Fire Service Number", "999");
+initEmergencyService("call-4", "Ambulance Service", "999");
+initEmergencyService("call-5", "Women & Child Helpline", "109");
+initEmergencyService("call-6", "Anti-Corruption Helpline", "106");
+initEmergencyService("call-7", "Electricity Helpline", "16216");
+initEmergencyService("call-8", "Brac Helpliner", "16445");
+initEmergencyService("call-9", "Bangladesh Railway Helpline", "163");
 
-// toggle
-
-const clearbtns = document.getElementById("clear");
-
-clearbtns.addEventListener("click", function (e) {
+// Clear history button
+const clearBtn = document.getElementById("clear");
+clearBtn.addEventListener("click", function (e) {
   e.preventDefault();
-historydata.length=0;
-  document.getElementById("history-Container").innerText = "";
+  historyData.length = 0;
+  renderHistory();
 });
 
-document.getElementById("history-Container").style.display = "none";
+// Render initial empty state
+renderHistory();
