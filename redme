@@ -1,0 +1,33 @@
+1 no: Q: ans: 
+id is use for a specific element and getElementById is used for modify a specific element 
+with a  specific class name we can identify all element with that class name 
+getElementsByClassName is used for modify all that  element 
+which element mached for first time we can fund by querySelector 
+we can find all element which is mached with the query select by the querySelectorAll 
+
+2. How do you **create and insert a new element into the DOM**? 
+ historyContainer = documet.getElementByClassName("historycontainer")
+const div = document.createElement("div");
+    div.innerHTML = `<div class="lg:flex justify-between items-center bg-[#fafafa] p-4 rounded-2 mb-2 mt-2">
+          <div>
+            <h3 class="font-bold text-gray-800 mb-1">name</h3> 
+            <p class="text-gray-600">number}</p>
+            <div class="text-gray-500 font-medium">date}</div>
+          </div>
+        </div>`;
+    historyContainer.appendChild(div);
+  }
+3. What is **Event Bubbling** and how does it work?
+
+event bubbling defined as when we click or take a step for child element it gratually propagate from child  to parent element into the dom 
+
+4. What is **Event Delegation** in JavaScript? Why is it useful?
+event delegation means by setting event of parent element control to chid element  .it is useful for reduce reuseable code 
+5. What is the difference between **preventDefault() and stopPropagation()** methods?
+
+prevent defoult is use for controling defoult behavior of a browser  and prevent us from error 
+*event.preventDefault()*
+
+stop progation is use to stop paraent element from child element 
+methods
+event.stopPropagation();

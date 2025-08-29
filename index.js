@@ -33,10 +33,13 @@ function renderHistory() {
 
   for (const data of historyData) {
     const div = document.createElement("div");
-    div.innerHTML = `<div class="lg:flex justify-between items-center bg-[#fafafa] p-4 rounded-2 mb-2 mt-2">
-          <div>
+    div.innerHTML = `<div class="lg:flex justify-between items-center bg-[#fafafa] p-2 rounded-2 mb-2 mt-2">
+          <div class="lg:flex lg:justify-between">
+<div>
+
             <h3 class="font-bold text-gray-800 mb-1">${data.name}</h3> 
             <p class="text-gray-600">${data.number}</p>
+</div>
             <div class="text-gray-500 font-medium"> ${data.date}</div>
           </div>
         </div>`;
